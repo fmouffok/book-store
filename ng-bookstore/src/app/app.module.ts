@@ -13,8 +13,8 @@ import { BookDetailsComponent } from './components/book-details/book-details.com
 
 
 const routes: Routes = [
-  {path: 'books', component: BookListComponent}, 
   {path: 'books/:id', component: BookDetailsComponent}, 
+  {path: 'books', component: BookListComponent}, 
   {path: 'search/:keyword', component: BookListComponent},
   {path: 'category/:id', component: BookListComponent},
   {path: '', redirectTo: '/books', pathMatch: 'full'},
