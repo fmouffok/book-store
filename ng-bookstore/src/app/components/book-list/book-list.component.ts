@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Book } from 'src/app/common/book';
 import { CartItem } from 'src/app/common/cart-item';
 import { BookService } from 'src/app/services/book.service';
@@ -19,7 +20,8 @@ export class BookListComponent implements OnInit {
 
   constructor(private _bookService: BookService,
     private _activatedRoute: ActivatedRoute,
-    private _cartService: CartService) { }
+    private _cartService: CartService, 
+    private _spinnerService: NgxSpinnerService) { }
 
   ngOnInit(): void {
     this._activatedRoute.paramMap.subscribe(() => {
@@ -28,12 +30,16 @@ export class BookListComponent implements OnInit {
   }
 
   listBooks() {
+    // start loader
+    this._spinnerService.show();
     this.searchMode = this._activatedRoute.snapshot.paramMap.has('keyword');
     if (this.searchMode) {
       this.handleSearchBooks();
     } else {
       this.handleListBooks();
     }
+    // stop loader  / spinner
+    this._spinnerService.hide();
   }
 
   handleListBooks() {

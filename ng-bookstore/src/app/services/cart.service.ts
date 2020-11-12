@@ -41,9 +41,6 @@ export class CartService {
       totalQuantityValue += current.quantity;
     }
 
-    console.log('total price : ', totalPriceValue);
-    console.log('total quantity : ', totalQuantityValue);
-
     this.totalPrice.next(totalPriceValue);
     this.totalQuantity.next(totalQuantityValue);
     
