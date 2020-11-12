@@ -43,7 +43,26 @@ export class CartService {
 
     this.totalPrice.next(totalPriceValue);
     this.totalQuantity.next(totalQuantityValue);
-    
   }
 
+  incrementQuantity(cartItem: CartItem) {
+    this.addToCart(cartItem);
+  }
+
+  decrementQuantity(cartItem: CartItem) {
+    cartItem.quantity--;
+    if (cartItem.quantity === 0) {
+      this.removeCartItem(cartItem)
+    }else{
+      this.calculateTotalPrice();
+    }
+  }
+
+  removeCartItem(cartItem: CartItem) {
+    const itemIdex = this.cartItems.findIndex(tmpItem => cartItem.id === tmpItem.id)
+    if (itemIdex > -1) {
+      this.cartItems.splice(itemIdex, 1);
+      this.calculateTotalPrice();
+    }
+  }
 }
