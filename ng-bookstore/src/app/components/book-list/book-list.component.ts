@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Book } from 'src/app/common/book';
+import { CartItem } from 'src/app/common/cart-item';
 import { BookService } from 'src/app/services/book.service';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-book-list',
@@ -16,7 +18,8 @@ export class BookListComponent implements OnInit {
   searchMode: boolean;
 
   constructor(private _bookService: BookService,
-    private _activatedRoute: ActivatedRoute) { }
+    private _activatedRoute: ActivatedRoute,
+    private _cartService: CartService) { }
 
   ngOnInit(): void {
     this._activatedRoute.paramMap.subscribe(() => {
@@ -50,6 +53,11 @@ export class BookListComponent implements OnInit {
     this._bookService.searchBooks(keyword).subscribe(
       data => this.books = data
     )
+  }
+
+  addToCart(book: Book) {
+    const cartItem = new CartItem(book);
+    this._cartService.addToCart(cartItem);
   }
 
 }

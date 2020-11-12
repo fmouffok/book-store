@@ -10,6 +10,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { BookCategoryComponent } from './components/book-category/book-category.component';
 import { SearchComponent } from './components/search/search.component';
 import { BookDetailsComponent } from './components/book-details/book-details.component';
+import { CartStatusComponent } from './components/cart-status/cart-status.component';
+
 
 
 const routes: Routes = [
@@ -30,16 +32,21 @@ const routes: Routes = [
     PageNotFoundComponent,
     BookCategoryComponent,
     SearchComponent,
-    BookDetailsComponent
+    BookDetailsComponent,
+    CartStatusComponent
+
   ],
+
   imports: [
     BrowserModule, 
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes) 
   ],
+
   providers: [
     BookService
   ],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }
