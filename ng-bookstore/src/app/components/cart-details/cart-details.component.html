@@ -1,0 +1,54 @@
+<div class="row">
+    <div class="col-md-3">
+        <app-book-category></app-book-category>
+    </div>
+    <div class="col-md-9">
+
+        <div class="col-md-12">
+
+            <div *ngIf="cartItems.length >0">
+                <table class="table table-bordered">
+                    <thead class="bg-dark text-light">
+                        <tr>
+                            <td width="20%">Book image</td>
+                            <td width="50%">Book details</td>
+                            <td width="30%"></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let cart of cartItems">
+                            <td><img [src]="cart.imageUrl" class="img-responsive" width="150" height="200" /></td>
+                            <td>
+                                <p> {{ cart.name }}</p>
+                                <p> {{ cart.priceUnit | currency:'&euro;'}} </p>
+                            </td>
+                            <td>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p>Quantity : {{ cart.quantity }}</p>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <p>Subtotal : {{ cart.priceUnit * cart.quantity | currency:'&euro;'}} </p>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"></td>
+                            <td class="font-weight-bold">
+                                <p>Total quantity : {{totalQuantity}}</p>
+                                <p>Shipping : Free</p>
+                                <p>Total price : {{totalPrice}} &euro;</p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div *ngIf="cartItems.length == 0" class="col-md-12 alert alert-warning mt-3">
+                Your cart is empty
+            </div>
+        </div>
+    </div>
+
+
+</div>
