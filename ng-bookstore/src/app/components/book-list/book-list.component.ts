@@ -14,13 +14,17 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class BookListComponent implements OnInit {
 
-  books: Book[];
-  currentCategoryId: number;
-  searchMode: boolean;
+  books: Book[] = [];
+  currentCategoryId: number = 1;
+  searchMode: boolean = false;
+
+  currentPage: number = 1;
+  pageSize: number = 5;
+  totalRecords: number = 0;
 
   constructor(private _bookService: BookService,
     private _activatedRoute: ActivatedRoute,
-    private _cartService: CartService, 
+    private _cartService: CartService,
     private _spinnerService: NgxSpinnerService) { }
 
   ngOnInit(): void {
@@ -49,9 +53,10 @@ export class BookListComponent implements OnInit {
     } else {
       this.currentCategoryId = 1;
     }
-    this._bookService.getBooks(this.currentCategoryId).subscribe(
-      data => this.books = data
-    )
+    this._bookService.getBooks(this.currentCategoryId,
+      this.currentPage - 1,
+      this.pageSize)
+      .subscribe(this.processPaginate());
   }
 
   handleSearchBooks() {
@@ -64,6 +69,20 @@ export class BookListComponent implements OnInit {
   addToCart(book: Book) {
     const cartItem = new CartItem(book);
     this._cartService.addToCart(cartItem);
+  }
+
+  updatePageSize(pageSize: number) {
+    this.listBooks();
+  }
+
+  processPaginate() {
+    return data => {
+      this.books = data._embedded.books;
+      // page number starts from index 1 
+      this.currentPage = data.page.number + 1;
+      this.pageSize = data.page.size;
+      this.totalRecords = data.page.totalElements;
+    }
   }
 
 }
