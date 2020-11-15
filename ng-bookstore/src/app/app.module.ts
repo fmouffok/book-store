@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 import { BookListComponent } from './components/book-list/book-list.component';
 import { BookService } from './services/book.service';
@@ -12,8 +13,7 @@ import { SearchComponent } from './components/search/search.component';
 import { BookDetailsComponent } from './components/book-details/book-details.component';
 import { CartStatusComponent } from './components/cart-status/cart-status.component';
 import { CartDetailsComponent } from './components/cart-details/cart-details.component';
-import { JwPaginationModule } from 'jw-angular-pagination';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 
 
@@ -42,11 +42,10 @@ const routes: Routes = [
   ],
 
   imports: [
+    NgbModule,
     BrowserModule, 
     HttpClientModule,
     NgxSpinnerModule,
-    JwPaginationModule,
-    NgbModule,
     RouterModule.forRoot(routes) 
   ],
 
