@@ -23,10 +23,13 @@ public class SecurityConfig  extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // you have to customize the access url by user roles
         http.authorizeRequests()
-                .antMatchers("/api/v1/books").hasAnyRole("ADMIN", "USER")
-                .antMatchers("/api/v1").permitAll()
-                .and().formLogin();
+//                .antMatchers("/api/v1/books").hasAnyRole("ADMIN", "USER")
+//                .antMatchers("/api/v1").permitAll()
+                .antMatchers("/api/v1").authenticated()
+//                .and().formLogin()
+                ;
     }
 
     @Bean
